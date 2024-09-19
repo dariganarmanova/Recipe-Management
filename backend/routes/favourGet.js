@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express();
-const Recipe = require('../schemas/recipe');
+const Recipe = require('../schemas/Recipe');
 const User = require('../schemas/User')
 const authenticateToken = require('../middleware/jwtAuth.js')
 const cors = require('cors')
@@ -14,7 +14,6 @@ app.get('/get', authenticateToken, async (req, res) => {
         if (!favorites || favorites.length === 0) {
             return res.status(404).json({ message: 'No favorites found' });
         }
-
         res.status(200).json(favorites);
     } catch (error) {
         console.error(error);

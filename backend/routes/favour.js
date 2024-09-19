@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express();
-const Recipe = require('../schemas/recipe')
+const Recipe = require('../schemas/Recipe.js')
 const User = require('../schemas/User')
 const cors = require('cors')
 const authenticateToken = require('../middleware/jwtAuth.js')
@@ -17,7 +17,6 @@ app.post('/', authenticateToken, async (req, res) => {
             ingredientLines: recipe.recipe.ingredientLines
         });
         await newFavorite.save()
-        console.log(newFavorite)
         res.status(201).json({ message: 'Recipe added to favorites', favorite: newFavorite });
 
     } catch (error) {

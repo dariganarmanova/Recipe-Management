@@ -54,7 +54,7 @@ const MainPage = () => {
                 <button type='submit' className='absolute right-0 top-0 h-full px-4 bg-blue-500 text-white rounded-r-md'>Submit</button>
             </form>
 
-            <div className='mt-10 w-full max-w-md '>
+            <div className='mt-10 w-full max-w-md mx-0 sm:mx-8'>
                 {recipes.map((recipe, index) => (
                     <div key={index}>
                         <h2 className='font-sans text-xl mb-3 mt-3'>{recipe.recipe.label}</h2>
