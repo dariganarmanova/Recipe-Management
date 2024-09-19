@@ -14,8 +14,12 @@ const MainPage = () => {
         const apid = 'c20ccf6a'
         const apikey = '970e9c80c7836f5ab10914bd148c34b7'
         try {
-            const response = await axios.get(`https://api.edamam.com/api/recipes/v2?type=public&q=${query}&app_id=${apid}&app_key=${apikey}`)
-            localStorage.getItem('userId')
+            const token = localStorage.getItem('token')
+            const response = await axios.get(`https://api.edamam.com/api/recipes/v2?type=public&q=${query}&app_id=${apid}&app_key=${apikey}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
             setRecipes(response.data.hits)
             setQuery('')
         } catch (error) {
@@ -25,10 +29,14 @@ const MainPage = () => {
 
     const handleReaction = async (recipe) => {
         try {
-            const userId = localStorage.getItem('userId')
-            const response = await axios.post('http://localhost:5005/api/favorites', { userId, recipe })
+            const token = localStorage.getItem('token')
+            const response = await axios.post('http://localhost:5005/api/favorites', { recipe }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
             setFavorites((prevFavorites) => [...prevFavorites, recipe])
-            navigate(`/favorites/${userId}`)
+            navigate('/favorites')
         } catch (error) {
             console.log(error)
         }

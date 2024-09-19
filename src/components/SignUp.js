@@ -12,10 +12,14 @@ const SignUp = () => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:5005/api/signup', { email, password })
-            alert('Signed up successfully!')
-            //console.log('signing up was successful', response.data)
-            localStorage.setItem('userId', response.data.userId)
-            navigate('/main')
+            if (response.data.token) {
+                alert('Signed up successfully!')
+                localStorage.setItem('token', response.data.token)
+                navigate('/main')
+            } else {
+                console.log(response.data.token)
+                console.log('trouble signing up')
+            }
         } catch (error) {
             alert('Trouble signing up')
             console.log(error)

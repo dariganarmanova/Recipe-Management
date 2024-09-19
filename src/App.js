@@ -11,7 +11,7 @@ function App() {
                 <Route path='/signup' element={<SignUp />} />
                 <Route path='/login' element={<LogIn />} />
                 <Route path='/main' element={<MainPage />} />
-                <Route path='/favorites/:id' element={<FavouritesStored />} />
+                <Route path='/favorites' element={<FavouritesStored />} />
             </Routes>
         </Router>
     )

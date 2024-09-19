@@ -19,12 +19,14 @@ const Favorites = ({ recipe }) => {
 }
 
 const FavouritesStored = () => {
-    const userId = localStorage.getItem('userId')
+    const token = localStorage.getItem('token')
     const [favorites, setFavorites] = useState([])
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:5005/api/favorites/get/${userId}`)
+                const response = await axios.get('http://localhost:5005/api/favorites/get', {
+                    headers: { Authorization: `Bearer ${token}` }
+                })
                 console.log(response.data)
                 setFavorites(response.data)
             } catch (error) {
@@ -32,7 +34,7 @@ const FavouritesStored = () => {
             }
         }
         fetchData()
-    }, [userId])
+    }, [token])
 
     return (
         <div className='flex flex-col justify-start items-center'>

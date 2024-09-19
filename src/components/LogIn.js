@@ -11,10 +11,9 @@ const LogIn = () => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:5005/api/login', { email, password })
-            const { userId } = response.data
-            if (userId) {
-                localStorage.setItem('userId', userId)
-                navigate(`/main?id=${userId}`)
+            if (response.data.token) {
+                localStorage.setItem('token', response.data.token)
+                navigate('/main')
             } else {
                 alert("You are not signed in")
             }
