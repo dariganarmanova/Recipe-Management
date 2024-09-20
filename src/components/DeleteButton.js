@@ -1,17 +1,19 @@
 import axios from 'axios';
 import React from 'react'
 
-const DeleteButton = () => {
-    const handleDelete = async (recipe) => {
+const DeleteButton = ({ recipe, onDelete }) => {
+    const handleDelete = async () => {
         const token = localStorage.getItem('token')
         try {
-            const result = axios.delete('http://localhost:5000/api/favorites/delete', { recipe }, {
+            const result = await axios.delete('http://localhost:5005/api/favorites/delete', {
+                data: { id: recipe._id, userId: recipe.userId },
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
             if (result) {
                 alert('Successfuly deleted!')
+                if (onDelete) onDelete(recipe)
             } else {
                 alert("Error happened")
                 console.log(result)

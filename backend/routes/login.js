@@ -4,9 +4,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const User = require('../schemas/User')
-
+app.use(cors())
 app.use(express.json())
-const JWT_SECRET = 'bjdksbdjsbj'
+const JWT_SECRET = 'cjdchdhcdj'
 
 app.post('/', async (req, res) => {
     try {
@@ -20,6 +20,7 @@ app.post('/', async (req, res) => {
             return res.status(401).json({ message: "Invalid credentials" })
         }
         const token = jwt.sign({ userId: findAccount._id }, JWT_SECRET, { expiresIn: '1h' })
+        console.log(token)
         return res.json({ token })
     } catch (error) {
         res.status(500).json({ message: "Trouble finding your account" })
